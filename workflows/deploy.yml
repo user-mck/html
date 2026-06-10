@@ -1,0 +1,41 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main        # workflow odpala się przy każdym push na branch "main"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Pobierz kod z repozytorium
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Załaduj klucz SSH
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      # 3. Wyślij pliki na serwer przez rsync
+      - name: Deploy files via rsync
+        run: |
+          rsync -avz --delete \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='*.md' \
+            -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.SSH_PORT }}" \
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/
+
+      # 4. Ustaw poprawne uprawnienia na serwerze
+      - name: Fix permissions
+        run: |
+          ssh -i ~/.ssh/id_ed25519 \
+            -p ${{ secrets.SSH_PORT }} \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "sudo chmod -R 755 /var/www/html && sudo chown -R deployer:www-data /var/www/html"
