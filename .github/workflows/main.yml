@@ -39,4 +39,4 @@ jobs:
           ssh -i ~/.ssh/id_ed25519 \
             -p ${{ secrets.SSH_PORT }} \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "sudo chmod -R 755 /var/www/html && sudo chown -R azureuser:www-data /var/www/html"
+            "sudo chown -R azureuser:www-data /var/www/html && sudo chmod -R 775 /var/www/html && sudo chown www-data:www-data /var/www/html/public/templates_c"
