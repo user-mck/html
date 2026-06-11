@@ -2,9 +2,9 @@
 $conf->debug = true; # set true during development and use in your code (for instance check if true to send additional message)
 
 # ---- Webapp location
-$conf->server_name = 'localhost';   # server address and port
+$conf->server_name = '74.248.19.84:80';   # server address and port
 $conf->protocol = 'http';           # http or https
-$conf->app_root = '/Kalkulator/public';   # project subfolder in domain (relative to main domain)
+$conf->app_root = '/var/www/html';   # project subfolder in domain (relative to main domain)
 
 # ---- Database config - values required by Medoo
 $conf->db_type = 'mysql';
