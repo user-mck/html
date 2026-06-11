@@ -32,13 +32,6 @@ jobs:
             --exclude='public/templates_c/' \
             -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.SSH_PORT }}" \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/
-
-      - name: Fix templates_c permissions
-        run: |
-          ssh -i ~/.ssh/id_ed25519 \
-            -p ${{ secrets.SSH_PORT }} \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "sudo chown -R www-data:www-data /var/www/html/public/templates_c && sudo chmod -R 775 /var/www/html/public/templates_c"
       
       # 4. Ustaw poprawne uprawnienia na serwerze
       - name: Fix permissions
