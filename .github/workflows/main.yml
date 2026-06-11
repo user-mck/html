@@ -29,6 +29,7 @@ jobs:
             --exclude='.git/' \
             --exclude='.github/' \
             --exclude='*.md' \
+            --exclude='public/templates_c/' \
             -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.SSH_PORT }}" \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/
 
