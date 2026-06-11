@@ -4,7 +4,7 @@ $conf->debug = true; # set true during development and use in your code (for ins
 # ---- Webapp location
 $conf->server_name = 'localhost';   # server address and port
 $conf->protocol = 'http';           # http or https
-$conf->app_root = '/Kalkulator_kredytowy/public';   # project subfolder in domain (relative to main domain)
+$conf->app_root = '/Kalkulator/public';   # project subfolder in domain (relative to main domain)
 
 # ---- Database config - values required by Medoo
 $conf->db_type = 'mysql';
