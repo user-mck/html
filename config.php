@@ -2,7 +2,7 @@
 $conf->debug = true; # set true during development and use in your code (for instance check if true to send additional message)
 
 # ---- Webapp location
-$conf->server_name = '74.248.19.84';   # server address and port
+$conf->server_name = 'kalkulator-kredytowy.duckdns.org';   # server address and port
 $conf->protocol = 'https';           # http or https
 $conf->app_root = '/public';   # project subfolder in domain (relative to main domain)
 
